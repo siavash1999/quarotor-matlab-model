@@ -5,7 +5,7 @@
 %              cruise, and spin mode is derived from physical model. its
 %              observability and controllability is checked and a
 %              full-state feedback controller is designed for it. 
-clear;close all;
+% clear;close all;
 
 %% Preparation
 %system properties:
@@ -54,9 +54,12 @@ Bhover = [0   , 0   , 0   , 0   ;...
 Chover = eye(12,12);
 
 %Checking observability and controllability:
-Obs1 = rank(obsv(Ahover, Chover)); %rank of observability matrix = 12
-Ctr1 = rank(ctrb(Ahover, Bhover)); %rank of controllability matrix = 12
-
+Obs = rank(obsv(Ahover, Chover)); %rank of observability matrix = 12
+Ctr = rank(ctrb(Ahover, Bhover)); %rank of controllability matrix = 12
+if Ctr < size(Ahover,1) || Obs < size(Ahover,1)
+    error("ERROR: System is not either observable or controllable. " + ...
+        "check the parameters and run the script again.")
+end
 %State-Space Represenation of model:
 quad_hover = ss(Ahover,Bhover,Chover,0);
 
