@@ -1,7 +1,7 @@
 clear; clc; close all;
 
 %% Initialization
-controller_type = "LQR";    % Either "LQR" or "PID" Value is accepted.
+controller_type = "PID";    % Either "LQR" or "PID" Value is accepted.
 if controller_type == "LQR"
     controller_flag = 0;
 elseif controller_type == "PID"
@@ -105,10 +105,10 @@ plot3(output.X_e.Data(:,1),output.X_e.Data(:,2),output.X_e.Data(:,3))
 hold on
 plot3(waypoints(:,1), waypoints(:,2), waypoints(:,3))
 grid on
-title("Trajectory of simulated Quadrotor UAV")
+title("Trajectory of simulated Quadrotor UAV with "+controller_type+" controller")
 xlabel("X (m)")
 xlim([-0.2, 1.2])
 ylabel("Y (m)")
 ylim([-0.2, 1.2])
 zlabel("Z (m)")
-zlim([-0.001, 0.001])
+zlim([-0.0001, 0.0001])
